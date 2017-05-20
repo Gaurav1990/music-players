@@ -1,0 +1,91 @@
+<html>
+<head>
+	<title> Add Genre </title>
+	<script src="http://cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+	<script src="/static/js/jquery.dataTables.min.js"></script>
+	<link rel="stylesheet" href="/static/css/common.css">
+	<script type="text/javascript">
+		$(document).ready(function(){
+		    $('#genreTable').DataTable();
+		});	
+	</script>
+	
+	<script>
+		function edit_pop_up(value, id){
+			document.getElementById('light').style.display='block';
+			document.getElementById('fade').style.display='block';
+			$('.input_box').val(value);
+			$('.genre_id').val(id);
+		}
+		function change_genre() {
+			$.ajax({
+				url: '/edit/genre/'+$('.genre_id').val(),
+				type: 'POST',
+				data: "genre_value="+$('.input_box').val(),
+				content_type: 'text',
+				cache: false,
+				success: function(data){
+					var response = JSON.parse(data);
+					console.log(response['resp']);
+					if (response['resp'] == 'success') {
+						$('#id_'+$('.genre_id').val()).text($('.input_box').val());
+						document.getElementById('light').style.display='none';
+						document.getElementById('fade').style.display='none';
+					}
+				},
+				error: function(xhr, err){
+					alert('error');
+					console.log(xhr.responseText);
+				}	
+			});
+		}	
+		
+	</script>
+
+	
+	
+	<link rel="stylesheet" href="/static/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="/static/css/common.css">	
+</head>
+<body>
+		{% if messages %}
+	        {% for message in messages %}
+	          <li>{{ message|capfirst }}</li>
+	        {% endfor %}
+        {% endif %}
+
+	<table>
+		<form method="POST" action="/add/genre">
+			{{form}}
+			<input type="submit">
+		</form>
+	</table>
+</br></br></br><hr></br></br>
+	<table id="genreTable">
+		<thead class="table_songs">
+		    <tr>
+		        <th>Genre</th>
+		        <th> EDIT </th>
+		    </tr>
+		 </thead>
+		 <tbody>
+		    {% for i in all_genre %}
+		    <tr>
+		        <td id="id_{{i.id}}">{{i.name}}</td>
+		        <td><a href="javascript:void(0)" onclick="edit_pop_up('{{i.name}}', {{i.id}})";>EDIT</a></td>
+		    </tr>
+		    {% endfor %}
+		</tbody>
+	</table>
+
+  <div id="light" class="white_content">
+  	To change the value of genre edit in the text filed and save it</br></br>
+  	<input type="hidden" class="genre_id">
+  	<input type="text" class="input_box">
+  	<button onclick="change_genre();">SAVE</button>
+  	<a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none'">Close</a>
+  </div>
+  <div id="fade" class="black_overlay"></div>
+
+</body>
+</html>

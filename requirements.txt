@@ -1,0 +1,9 @@
+Ubuntu 14.04.3 LTS (GNU/Linux 3.13.0-62-generic x86_64)
+Steps:
+
+apt-get update
+sudo apt-get install python-dev
+wget https://bootstrap.pypa.io/get-pip.py
+sudo pip install django==1.8
+sudo apt-get install mysql-server
+sudo apt-get install python-mysqldb

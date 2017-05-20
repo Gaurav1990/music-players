@@ -1,0 +1,57 @@
+<html>
+<head>
+	<title> Music Track </title>
+	<script src="http://cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+	<script src="/static/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		    $('#myTable').DataTable();
+		});	
+	</script>
+	<link rel="stylesheet" href="/static/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="/static/css/common.css">	
+</head>
+<body>
+		{% if messages %}
+	        {% for message in messages %}
+	          <li>{{ message|capfirst }}</li>
+	        {% endfor %}
+        {% endif %}
+
+	<table id="myTable">
+		<thead class="table_songs">
+		    <tr>
+		        <th>Title</th>
+		        <th>Play</th>
+		        <th>Genre</th>
+		        <th>Rating</th>
+		        <th>Singer</th>
+		        <th>Composer</th>
+		    </tr>
+		 </thead>
+		 <tbody>
+		    {% for i in all_songs %}
+		    <tr>
+		        <td>
+		        	{{i.title}}
+		        </td>
+		        <td>
+		        	<audio controls preload="none">
+					  <source src="/media/{{i.title}}.mp3" type="audio/mpeg">
+					</audio>
+				</td>
+		        <td>{{i.genre}}</td>
+		        <td>{{i.rating}}</td>
+		        <td>{{i.singer}}</td>
+		        <td>{{i.composer}}</td>
+		    </tr>
+		    {% endfor %}
+		</tbody>
+	</table>
+	
+	<a href="/add/song">Add New Track </a></br>
+	<a href="/add/genre">Add New Genre </a>
+
+</body>
+</html>
+
