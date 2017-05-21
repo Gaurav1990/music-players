@@ -1,0 +1,21 @@
+Ubuntu 14.04.3 LTS (GNU/Linux 3.13.0-62-generic x86_64)
+Steps:
+
+1. sudo apt-get update
+2. sudo apt-get install python-dev
+3. wget https://bootstrap.pypa.io/get-pip.py
+4. sudo python get-pip.py
+5. sudo pip install django==1.8
+6. sudo apt-get install mysql-server
+	database
+		username: root
+		password: data
+7. sudo apt-get install python-mysqldb
+8. mysql steps:
+	mysql -u root -p
+		password: data
+		
+	create database db;
+	exit
+8. python manage.py migrate
+9. python manage.py runserver

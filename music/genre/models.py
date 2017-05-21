@@ -1,5 +1,6 @@
 import os
 from django.db import models
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 RATING = (
     (1,'1'),
@@ -20,7 +21,7 @@ def content_file_name(instance, filename):
     ext = filename.split('.')[-1]
     #name = '_'.join(instance.title.split(' '))
     filename = "%s.%s" % (instance.title, ext)
-    return os.path.join('/home/vagrant/music_app/music/media/', filename)
+    return os.path.join(BASE_DIR+'/media/', filename)
 
 class Song(models.Model):
     title = models.CharField('title', max_length=256)

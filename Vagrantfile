@@ -11,7 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.network "forwarded_port", guest: 4002, host: 4002
 	config.vm.network "private_network", ip: "192.168.50.4"
 	
-  config.vm.synced_folder "../music_app", "/home/vagrant/music_app", :mount_options => ["fmode=644"]
+  config.vm.synced_folder "../music-players", "/home/vagrant/music-players", :mount_options => ["fmode=644"]
 
   config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
